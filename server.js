@@ -7,7 +7,8 @@ import catgoryRouts from "./routes/categoryRouts.js"
 import connectDB from "./db.js";
 import authRoutes from "./routes/authRoute.js";
 import cors from "cors"
-
+import path from "path";
+import { fileURLToPath } from "url";
 //configure env
 dotenv.config();
  const orrgen={
@@ -20,6 +21,9 @@ dotenv.config();
 
 //databse config
 connectDB();
+//Fix  es 6 file configetsation
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname( __dirname)
 
 //rest object
 const app = express();
@@ -28,17 +32,16 @@ const app = express();
 app.use(cors(orrgen))
 app.use(express.json());
 app.use(morgan("dev"));
-
-
+app.use(express.static(__dirname,'./client/build/'))
 //routes
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category",catgoryRouts);
-app.use('/api/v1/product',productRouter)
+app.use('/api/v1/product',productRouter);
 
-const
+
 //rest api
-app.use("/" (req, res) => {
-  res.send("<h1>Welcome to ecommerce app</h1>");
+app.use("*", function  (req, res)  {
+  res.sendFile(path.join(__dirname,'./client//build/index.html'));
 });
 
 //PORT
