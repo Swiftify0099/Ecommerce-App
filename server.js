@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoute.js";
 import cors from "cors"
 import  Path from "path";
 import path from "path";
+import { fileURLToPath } from "url";
 //configure env
 dotenv.config();
  const orrgen={
@@ -35,6 +36,10 @@ app.use(express.static(__dirname,'./client/build'))
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category",catgoryRouts);
 app.use('/api/v1/product',productRouter)
+//Fix  es 6 file configetsation
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname( __dirname)
+const
 //rest api
 app.use("/", function  (req, res)  {
   res.sendFile(path.join(__dirname,'./client/build/index.html'));
