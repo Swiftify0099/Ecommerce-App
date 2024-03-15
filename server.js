@@ -44,7 +44,7 @@ app.use('/api/v1/product',productRouter);
 
 //rest api
 app.use("*", function  (req, res)  {
-  res.sendFile(path.join(__dirname,'./client/build/index.html'));
+  res.sendFile(Path.join(__dirname,'./client/build/index.html'));
 });
 
 
